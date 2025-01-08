@@ -1,33 +1,53 @@
-import ollama from "ollama";
-import fs from "fs/promises";
+import ollama from 'ollama';
+import fs from 'fs';
+import path from 'path';
 
-async function askToOllama(content) {
-  try {
-    const response = await ollama.chat({
-      model: 'llama3.2:1b',
-      messages: [{ role: 'user', content: content }],
+function askTheollama(question) {
+  return ollama.chat({
+    model: 'llama3.2:1b',
+    messages: [{ role: 'user', content: question }],
+  })
+    .then((response) => response.message.content)
+    .catch((error) => {
+      console.error('Error:', error);
+      return null;
     });
-    return response;
-  } catch (error) {
-    throw new Error(`Error with Ollama: ${error.message}`);
+}
+
+async function BatchQuestions() {
+  const questionsDir = './questions';
+  const answersDir = './answers';
+
+  if (!fs.existsSync(answersDir)) {
+    fs.mkdirSync(answersDir);
+  }
+
+  const files = fs.readdirSync(questionsDir)
+    .filter((file) => file.startsWith('q') && file.endsWith('.txt'))
+    .sort();
+
+  for (const file of files) {
+
+    const number = file.match(/q(\d+)\.txt/)[1];
+
+
+    const question = fs.readFileSync(path.join(questionsDir, file), 'utf8');
+
+    console.log(`Processing question ${number}...`);
+    const answer = await askTheollama(question);
+
+    if (answer) {
+      const answerFile = `a${number}.txt`;
+      fs.writeFileSync(path.join(answersDir, answerFile), answer);
+      console.log(`Answer ${number} has been written to ${answerFile}`);
+    } else {
+      console.log(`Failed to get answer for question ${number}`);
+    }
   }
 }
 
-async function main() {
-  try {
-    const questionsDirPath = "./questions";
-    const answersDirPath = "./answers";
-    const questionsFileNameList = await fs.readdir(questionsDirPath); // ['q1.txt', 'q2.txt']
-    questionsFileNameList.forEach(async(fileName)=>{
-      const content = await fs.readFile(`${questionsDirPath}/${fileName}`);
-      const ollamaResponse = await askToOllama(content.toString());
-      const answerFileName = `${answersDirPath}/${fileName.replace("q","a")}`;
-      await fs.writeFile(answerFileName, ollamaResponse.message.content);
-      console.log(`answer file created at ${answerFileName}`);
-    })
-  } catch (error) {
-    console.error("Error:", error.message);
-  }
-}
-
-main();
+BatchQuestions().then(() => {
+  console.log('Batch processing completed');
+}).catch((error) => {
+  console.error('Batch processing failed:', error);
+});

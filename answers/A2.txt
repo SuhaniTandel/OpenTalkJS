@@ -15,9 +15,9 @@ Dear [Recipient's Name],
 
 Please accept this letter as formal notice of my resignation from my position as [Your Position] at [Company Name], effective [Date of Last Day of Work].
 
-I appreciate the opportunities I have had while working at [Company Name]. However, I have decided that it is time for me to move on and explore new opportunities.
+I appreciate the opportunities I've had while working at [Company Name], and I'm grateful for the experience and knowledge gained during my time here. However, I have decided that it's time for me to move on and explore new opportunities.
 
-I will do my best to ensure a smooth transition of my responsibilities and complete any outstanding tasks before my departure. If there is anything specific you would like me to focus on during my remaining time here, please let me know.
+I will do my best to ensure a smooth transition of my responsibilities and complete any outstanding tasks before my departure. If there's anything specific you'd like me to focus on during my remaining time here, please let me know.
 
 Thank you again for the opportunity to work at [Company Name]. I wish the company continued success in the future.
 
@@ -26,9 +26,11 @@ Sincerely,
 [Your Signature]
 [Your Name]
 
-Please note that this is just a sample, and you should customize it to fit your specific situation and needs. You may also want to include additional details, such as:
+Please note that this is a sample, and you should adjust it according to your specific situation and needs. You may also want to include additional details, such as:
 
 * A specific reason for your resignation (optional)
 * Offer to assist with the recruitment and training of your replacement
-* Notification of any necessary paperwork or procedures
-* Contact information for a point of contact if you need to be reached after your departure
+* A statement on your intention to maintain confidentiality regarding company matters
+* Any other relevant information or policies that apply to your situation
+
+Remember to keep the tone professional and respectful, even if you're leaving for negative reasons.
