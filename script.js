@@ -1,25 +1,25 @@
 import fs from 'fs';
 import ollama from "ollama";
 
-async function runChat() {
+async function ask_llm(q) {
     try {
-        const inputFilePath = "q.txt";
-        const inputContent = fs.readFileSync(inputFilePath, "utf-8");
-
         const response = await ollama.chat({
-            model: "llama3.2:1b",
-            messages: [{ role: "user", content: inputContent }],
+            model: "llama3.2:1b", 
+            messages: [{ role: "user", content: q }],
         });
 
-        const chatbotResponse = response.message.content;
+        const a = response.message.content;
 
-        const outputFilePath = "a.txt";
-        fs.writeFileSync(outputFilePath, chatbotResponse, "utf-8");
-
-        console.log("Chatbot response has been saved to a.txt.");
-    } catch (error) {
-        console.error("Error occurred:", error.message);
+        fs.writeFile('a.txt', a, (err) => {
+            if (err) {
+                throw err;
+            }
+            console.log("The AI's response has been saved to a.txt.");
+        });
+    } catch (err) {
+        console.error("Error:", err);
     }
 }
 
-runChat();
+const question = fs.readFileSync("q.txt", 'utf8');
+ask_llm(question);
